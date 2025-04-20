@@ -5,3 +5,4 @@ flask-mail
 gunicorn
 PyJWT
 cloudinary
+python-dotenv
