@@ -1,0 +1,10 @@
+# Ignore Python secrets
+backend/config.py
+.env
+
+# Node modules
+frontend/node_modules
+backend/node_modules
+
+# Build folders
+frontend/dist
