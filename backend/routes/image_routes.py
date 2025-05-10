@@ -11,6 +11,7 @@ load_dotenv()
 CLOUD_NAME = os.environ.get("CLOUD_NAME")
 API_KEY = os.environ.get("API_KEY")
 API_SECRET = os.environ.get("API_SECRET")
+REMOVE_BG_API_KEY = os.environ.get("REMOVE_BG_API_KEY")
 
 
 # Cloudinary config
