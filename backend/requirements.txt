@@ -6,3 +6,5 @@ gunicorn
 PyJWT
 cloudinary
 python-dotenv
+requests
+tempfile
