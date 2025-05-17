@@ -55,7 +55,6 @@ import SellerOrders from './Pages/seller_pages/SellerOrders';
 import SellerSold from './Pages/seller_pages/SellerSold';
 import AdminSellerOrders from './Pages/Admin_pages/SellerAdmin/AdminSellerOrders';
 import Search from './Pages/Pages/Search';
-import Loader from './Structure/Loader';
 import ProductPreview from './Pages/seller_pages/ProductPreview';
 
 const router = createBrowserRouter(
