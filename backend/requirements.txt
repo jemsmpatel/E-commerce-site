@@ -1,0 +1,9 @@
+Flask
+flask-cors
+flask-pymongo
+flask-mail
+gunicorn
+PyJWT
+cloudinary
+python-dotenv
+requests
