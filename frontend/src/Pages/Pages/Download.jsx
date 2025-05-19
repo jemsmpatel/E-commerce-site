@@ -29,14 +29,14 @@ const Download = () => {
                     <p className="text-center mt-2">
                         This is the right part of the page. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium voluptas perferendis suscipit ipsam tenetur deleniti, corporis porro id ducimus, numquam iusto natus. Quam sequi facilis magnam illum ducimus quod asperiores!
                     </p>
-                    <a href="../../assets/SHOOP_MART.apk" download className="mt-4">
+                    <a href="/assets/SHOOP_MART.apk" download className="mt-4">
                         <button className="w-40 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700 transition">Download</button>
                     </a>
                     <h4 className="text-xl mt-6 font-semibold">Seller</h4>
                     <p className="text-center mt-2">
                         This is the right part of the page. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium voluptas perferendis suscipit ipsam tenetur deleniti, corporis porro id ducimus, numquam iusto natus. Quam sequi facilis magnam illum ducimus quod asperiores!
                     </p>
-                    <a href="../../assets/SELLER_SHOOP_MART.apk" download className="mt-4">
+                    <a href="/assets/SELLER_SHOOP_MART.apk" download className="mt-4">
                         <button className="w-40 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700 transition">Download</button>
                     </a>
                 </div>
