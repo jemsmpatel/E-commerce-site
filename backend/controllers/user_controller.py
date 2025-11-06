@@ -37,7 +37,7 @@ def request_otp():
     otp_store[email] = {"otp": otp, "timestamp": time.time()}
 
     # Create the email message
-    msg = Message("Your OTP Code", sender="your_email@gmail.com", recipients=[email])
+    msg = Message("Your OTP Code", sender="jemsmpatel1310@gmail.com", recipients=[email])
     msg.body = f"Your OTP is: {otp}"
 
     try:
