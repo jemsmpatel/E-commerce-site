@@ -14,8 +14,6 @@ load_dotenv()
 
 MONGO_URI = os.environ.get("MONGO_URI")
 SECRET_KEY = os.environ.get("SECRET_KEY")
-MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 
 app = Flask(__name__)
@@ -25,15 +23,6 @@ app.config["JWT_SECRET"] = SECRET_KEY
 
 mongo.init_app(app)
 
-# Mail config
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = MAIL_USERNAME
-app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
-app.config['MAIL_DEFAULT_SENDER'] = MAIL_USERNAME
-mail.init_app(app)
 
 frontend_folder = os.path.join(os.getcwd(), "..", "frontend")
 dist_folder = os.path.join(frontend_folder, "dist")
