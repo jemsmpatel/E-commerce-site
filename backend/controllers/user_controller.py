@@ -18,33 +18,27 @@ otp_store = {}
 
 def request_otp():
     data = request.json
-    email = data.get('email')  # Get email from request data
+    email = data.get('email')
 
     if not email:
         return jsonify({"error": "Email is required"}), 400
 
-    # Simulate fetching user from DB
-    # You can replace this with actual MongoDB or other DB query
-    user = {"email": email}  # Replace this line with actual DB query if needed
-
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-
     # Generate a 6-digit OTP
     otp = str(random.randint(100000, 999999))
 
-    # Save OTP with email and timestamp (In-memory, could be Redis or DB in real app)
+    # Save OTP with email and timestamp
     otp_store[email] = {"otp": otp, "timestamp": time.time()}
 
     # Create the email message
-    msg = Message("Your OTP Code", sender="jemsmpatel1310@gmail.com", recipients=[email])
+    msg = Message("Your OTP Code", recipients=[email])
     msg.body = f"Your OTP is: {otp}"
 
     try:
-        # Send the OTP email
         mail.send(msg)
+        print(f"✅ OTP sent to {email}: {otp}")
         return jsonify({"message": "OTP sent to your email"}), 200
     except Exception as e:
+        print("❌ MAIL ERROR:", e)
         return jsonify({"error": f"Failed to send OTP: {str(e)}"}), 500
 
 def create_user():
