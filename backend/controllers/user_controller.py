@@ -4,17 +4,23 @@ from db import mongo
 from bson.objectid import ObjectId
 from utils.jwt_helper import generate_token
 from models.user_model import UserModel, Contact, Cart
-import hashlib
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
 import datetime
-from mail_config import mail
-from flask_mail import Message
+from dotenv import load_dotenv
 import random
 import time
+import os
 
 
 # In-memory OTP store
 otp_store = {}
 
+load_dotenv()
+
+configuration = sib_api_v3_sdk.Configuration()
+configuration.api_key['api-key'] = os.environ.get("BREVO_API_KEY")
+api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
 
 def request_otp():
     data = request.json
@@ -23,22 +29,37 @@ def request_otp():
     if not email:
         return jsonify({"error": "Email is required"}), 400
 
-    # Generate a 6-digit OTP
+    # 1️⃣ Generate OTP
     otp = str(random.randint(100000, 999999))
 
-    # Save OTP with email and timestamp
+    # 2️⃣ Store OTP with timestamp
     otp_store[email] = {"otp": otp, "timestamp": time.time()}
 
-    # Create the email message
-    msg = Message("Your OTP Code", recipients=[email])
-    msg.body = f"Your OTP is: {otp}"
+    # 3️⃣ Prepare Brevo email
+    send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
+        to=[{"email": email}],
+        sender={"email": os.environ.get("MAIL_USERNAME"), "name": "Shoop Mart"},  # Must be verified sender
+        subject="Your OTP Code",
+        html_content=f"""
+        <html>
+            <body>
+                <h2>Your OTP Code</h2>
+                <p>Dear {email},</p>
+                <p>Your one-time password (OTP) is:</p>
+                <h1 style='color:#2E86C1'>{otp}</h1>
+                <p>This OTP is valid for 10 minutes.</p>
+                <br>
+                <p>Best regards,<br>Shoop Mart Team</p>
+            </body>
+        </html>
+        """
+    )
 
+    # 4️⃣ Send OTP via Brevo
     try:
-        mail.send(msg)
-        print(f"✅ OTP sent to {email}: {otp}")
+        api_instance.send_transac_email(send_smtp_email)
         return jsonify({"message": "OTP sent to your email"}), 200
-    except Exception as e:
-        print("❌ MAIL ERROR:", e)
+    except ApiException as e:
         return jsonify({"error": f"Failed to send OTP: {str(e)}"}), 500
 
 def create_user():
